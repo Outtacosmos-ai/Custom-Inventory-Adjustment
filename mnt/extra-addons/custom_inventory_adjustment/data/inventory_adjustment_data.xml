@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Inventory Adjustment Reasons -->
+        <record id="inventory_adjustment_reason_damaged" model="inventory.adjustment.reason">
+            <field name="name">Damaged Goods</field>
+            <field name="code">DAMAGED</field>
+        </record>
+
+        <record id="inventory_adjustment_reason_lost" model="inventory.adjustment.reason">
+            <field name="name">Lost in Warehouse</field>
+            <field name="code">LOST</field>
+        </record>
+
+        <record id="inventory_adjustment_reason_theft" model="inventory.adjustment.reason">
+            <field name="name">Theft</field>
+            <field name="code">THEFT</field>
+        </record>
+
+        <record id="inventory_adjustment_reason_count" model="inventory.adjustment.reason">
+            <field name="name">Inventory Count</field>
+            <field name="code">COUNT</field>
+        </record>
+
+        <!-- Default Inventory Adjustment Settings -->
+        <record id="default_inventory_adjustment_settings" model="inventory.adjustment.settings">
+            <field name="require_approval">True</field>
+            <field name="approval_user_id" ref="base.user_root"/>
+            <field name="auto_post_to_accounting">False</field>
+            <field name="default_reason_id" ref="inventory_adjustment_reason_count"/>
+        </record>
+    </data>
+</odoo>

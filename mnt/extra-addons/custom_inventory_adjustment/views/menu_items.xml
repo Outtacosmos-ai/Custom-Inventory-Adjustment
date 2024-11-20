@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Menu for Inventory Adjustment -->
+        <menuitem id="menu_inventory_adjustment_root" name="Custom Inventory" sequence="50"/>
+
+        <menuitem id="menu_inventory_adjustment" name="Adjustments" parent="menu_inventory_adjustment_root" action="action_inventory_adjustment" sequence="10"/>
+        <menuitem id="menu_inventory_adjustment_reason" name="Adjustment Reasons" parent="menu_inventory_adjustment_root" action="action_inventory_adjustment_reason" sequence="20"/>
+        <menuitem id="menu_inventory_adjustment_settings" name="Adjustment Settings" parent="menu_inventory_adjustment_root" action="action_inventory_adjustment_settings" sequence="30" groups="stock.group_stock_manager"/>
+    </data>
+</odoo>

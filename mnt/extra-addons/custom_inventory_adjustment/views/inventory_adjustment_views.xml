@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sequence Configuration -->
+        <record id="seq_inventory_adjustment" model="ir.sequence">
+            <field name="name">Inventory Adjustment</field>
+            <field name="code">inventory.adjustment</field>
+            <field name="prefix">INV-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Action for Inventory Adjustment -->
+        <record id="action_inventory_adjustment" model="ir.actions.act_window">
+            <field name="name">Inventory Adjustments</field>
+            <field name="res_model">custom.inventory.adjustment</field> <!-- Make sure this model exists -->
+            <field name="view_mode">tree,form</field>
+        </record>        
+
+        <!-- Inventory Adjustment Form View -->
+        <record id="view_inventory_adjustment_form" model="ir.ui.view">
+            <field name="name">inventory.adjustment.form</field>
+            <field name="model">custom.inventory.adjustment</field> <!-- Ensure model matches -->
+            <field name="arch" type="xml">
+                <form string="Inventory Adjustment">
+                    <header>
+                        <button name="action_validate" string="Validate" type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_approve" string="Approve" type="object" class="oe_highlight" states="draft" groups="stock.group_stock_manager"/>
+                        <button name="action_cancel" string="Cancel" type="object" states="draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="reason_id"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="approved_by" readonly="1"/>
+                                <field name="approval_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Adjustment Lines">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="current_quantity"/>
+                                        <field name="new_quantity"/>
+                                        <field name="difference"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menuitem for Inventory Adjustments -->
+        <menuitem id="menu_inventory_adjustment" 
+                  name="Adjustments" 
+                  parent="menu_inventory_adjustment_root" 
+                  action="action_inventory_adjustment" 
+                  sequence="10"/>
+    </data>
+</odoo>
